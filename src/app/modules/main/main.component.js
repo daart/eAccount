@@ -1,9 +1,7 @@
-import controller from "./main.controller";
-import template from "./main.template.html";
+import template from './main.template.html';
 
 const mainComponent = {
-	template,
-	controller
+	template
 };
 
 export default mainComponent;

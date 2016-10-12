@@ -1,25 +1,22 @@
-import authModuleComponents from './components';
-import authModuleComponent from './auth.component.js';
+import components from './components';
+import component from './auth.component';
 
-const authModule = angular.module('auth', [
-	authModuleComponents
-]);
-authModule.component('auth', authModuleComponent);
+const auth = angular.module('auth', [components]);
 
-authModule.config( ($stateProvider) => {
+auth.component('auth', component);
+
+auth.config(($stateProvider) => {
 	"ngInject";
 
 	$stateProvider
 		.state('auth.login', {
-			name: 'login',
 			url: '/login',
 			component: 'login'
 		})
 		.state('auth.register', {
-			name: 'register',
 			url: '/register',
 			component: 'register'
-		})
+		});
 });
 
-export default authModule.name;
+export default auth.name;

@@ -1,9 +1,6 @@
-import mainModule from './main'; 
-import authModule from './auth';
+import auth from './auth';
+import main from './main';
 
-const appModules = angular.module('app.modules', [
-	mainModule,
-	authModule
-]);
+const modules = angular.module('modules', [auth, main]);
 
-export default appModules.name;
+export default modules.name;

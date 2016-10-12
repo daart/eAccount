@@ -1,5 +1,7 @@
+import template from './app.template.html';
+
 const appComponent = {
-	template: `<ui-view></ui-view>`
-}
+	template
+};
 
 export default appComponent;

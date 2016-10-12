@@ -1,7 +1,30 @@
-import mainModuleComponent from './main.component.js';
+import component from './main.component';
+import components from './components';
 
-const mainModule = angular.module('main', []);
+const main = angular.module('main', [components]);
 
-mainModule.component('main', mainModuleComponent);
+main.component('main', component);
 
-export default mainModule.name;
+main.config(($stateProvider) => {
+	"ngInject";
+
+	$stateProvider
+		.state('main.dashboard', {
+			url: 'dashboard', 
+			component: 'dashboard'
+		})
+		.state('main.settings', {
+			url: 'settings',
+			component: 'settings'
+		})
+		// .state('main.goals', {
+		// 	url: '/goals', 
+		// 	component: 'goals'
+		// })
+		// .state('main.accounts', {
+		// 	url: '/accounts', 
+		// 	component: 'accounts'
+		// });
+});
+
+export default main.name;
