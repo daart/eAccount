@@ -1,15 +1,5 @@
 const _ = require('lodash');
-
-const fakeUsers = [
-{
-	userName: 'puzzzkarapuz',
-	password: 'qwerty'
-},
-{
-	userName: 'admin',
-	password: 'asgard'
-}
-];
+const User = require('mongoose').model('User');
 
 module.exports.signin = (req, res) => {
 	let {userName, password} = req.body;
@@ -33,5 +23,47 @@ module.exports.signin = (req, res) => {
 			});
 		}
 	}
+
+}
+
+module.exports.register = (req, res) => {
+
+	let {email} = req.body;
+
+	User.findOne( {email}, (err, user) => {
+
+		if(err) {
+			res.json({
+				success: false,
+				message: err
+			})
+			return;
+		}
+
+		if(user !== null) {
+			res.json({
+				success: false,
+				message: 'such user already exists '
+			})
+			return;
+		} 
+
+		User.create(req.body, (err, createdUser) => {
+
+			if(err) {
+				res.json({
+					success: false,
+					message: err
+				})
+				return;
+			}
+
+			res.json({
+				success: true,
+				createdUser
+			})
+
+		})
+	});
 
 }
