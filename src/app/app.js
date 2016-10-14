@@ -1,12 +1,19 @@
 import router from 'angular-ui-router';
+import messages from 'angular-messages';
 
 import modules from './modules';
+import services from './services';
 import appComponent from './app.component';
 
 const app = angular.module('app', [
 		router,
-		modules
+		messages,
+		
+		modules,
+		services
 	]);
+
+console.log(messages);
 
 app.component('app', appComponent);
 

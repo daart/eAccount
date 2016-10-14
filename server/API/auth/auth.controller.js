@@ -1,34 +1,60 @@
 const _ = require('lodash');
 const User = require('mongoose').model('User');
+const jwt = require('jsonwebtoken');
 
-module.exports.signin = (req, res) => {
-	let {userName, password} = req.body;
+const signin = (req, res) => {
 
-	let user = _.find(fakeUsers, {userName});
+	const {email, password} = req.body;
 
-	if(!user) {
-		res.json({
-			success: false,
-			message: 'no such user found'
-		})
-	} else {
-		if(user.password !== password) {
+	//get User by it's email
+	User.findOne( {email}, (err, user) => {
+
+		// db error
+		if(err) {
 			res.json({
 				success: false,
-				message: 'password is incorrect'
+				message: err
 			})
-		} else {
-			res.json({
-				success: true
-			});
+			return;
 		}
-	}
+
+		// if no user found
+		if(user === null) {
+			res.json({
+				success: false,
+				message: 'no such user found'
+			})
+		} else { 
+
+			// password is incorrect
+			if(user.password !== password) {
+				res.json({
+					success: false,
+					message: 'password is incorrect'
+				})
+			} else {
+
+				const payload = {
+					login: user.userName
+				};
+
+				const secret = req.app.get('secret');
+
+				const token = jwt.sign(payload, secret, {expiresIn: '1m'});
+
+				res.json({
+					success: true,
+					token
+				});
+			}
+		}
+	} );
 
 }
 
-module.exports.register = (req, res) => {
+const register = (req, res) => {
 
-	let {email} = req.body;
+	const {email} = req.body;
 
 	User.findOne( {email}, (err, user) => {
 
@@ -43,7 +69,7 @@ module.exports.register = (req, res) => {
 		if(user !== null) {
 			res.json({
 				success: false,
-				message: 'such user already exists '
+				message: 'such user already exists'
 			})
 			return;
 		} 
@@ -66,4 +92,28 @@ module.exports.register = (req, res) => {
 		})
 	});
 
-}
+};
+
+const users = (req, res) => {
+	User.find({}, (err, users) => {
+		if(err) {
+			res.json({
+				success: false,
+				message: err
+			});
+
+			return;
+		} 
+
+		res.json({
+			success: true,
+			users
+		});
+	});
+};
+
+module.exports = {
+	signin,
+	register,
+	users
+};
