@@ -35,12 +35,12 @@ const signin = (req, res) => {
 			} else {
 
 				const payload = {
-					login: user.userName
+					userName: user.userName
 				};
 
 				const secret = req.app.get('secret');
 
-				const token = jwt.sign(payload, secret, {expiresIn: '1m'});
+				const token = jwt.sign(payload, secret, {expiresIn: '1d'});
 
 				res.json({
 					success: true,
@@ -85,8 +85,7 @@ const register = (req, res) => {
 			}
 
 			res.json({
-				success: true,
-				createdUser
+				success: true
 			})
 
 		})
@@ -112,8 +111,38 @@ const users = (req, res) => {
 	});
 };
 
+const validateToken = (req, res) => {
+	if (req.body.token){
+	    jwt.verify(req.body.token, req.app.get('secret'), function(err, decoded) {
+
+	      if (err) {
+	        return res.json({
+	          success: false,
+	          message: 'Failed to authenticate token.'
+	        });
+	      } else {
+	        return res.json({ 
+	          success: true,
+	          // refreshed token
+	          token: jwt.sign({
+	            userName: decoded.userName
+	          }, req.app.get('secret'), {expiresIn: '1d'})
+	        });
+	      }
+
+	    });
+	  } else {
+	    return res.json({
+	    	success: false,
+          	message: 'No token provided'
+	    })
+	  }
+
+}
+
 module.exports = {
 	signin,
 	register,
-	users
+	users,
+	validateToken
 };

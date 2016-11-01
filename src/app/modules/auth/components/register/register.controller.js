@@ -11,7 +11,7 @@ class RegisterController {
 					const {success, message} = res.data;
 
 					if(success) {
-						this.$state.go('main.dashboard');
+						this.$state.go('auth.login');
 
 					} else {
 						alert(message);
