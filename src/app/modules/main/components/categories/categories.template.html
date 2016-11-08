@@ -1,0 +1,28 @@
+<div class="container">
+	    	
+	<ul class="nav nav-tabs">
+	    <li ng-repeat="type in $ctrl.types" 
+			ng-class="{active: $ctrl.activeType === type}" 
+			ng-click="$ctrl.activeType = type" >
+			<a href="">{{type}}</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div 
+			ng-repeat="type in $ctrl.types" 
+			class="tab-pane" 
+			ng-class="{active: $ctrl.activeType === type}">
+			<ul>
+				<li ng-repeat="category in $ctrl.categories | filter: {type}">
+					<a ng-click="$ctrl.editingCategory = category._id">{{category.title}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<category-form 
+		ng-if="!$ctrl.loading" 
+		types="$ctrl.types"
+		category-id="$ctrl.editingCategory"></category-form>
+
+</div>

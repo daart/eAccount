@@ -17,6 +17,10 @@ main.config(($stateProvider) => {
 			url: 'settings',
 			component: 'settings'
 		})
+		.state('main.categories', {
+			url: 'categories',
+			component: 'categories'
+		})
 		// .state('main.goals', {
 		// 	url: '/goals', 
 		// 	component: 'goals'

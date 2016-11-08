@@ -9,6 +9,8 @@ module.exports = {
 		publicPath: '/static/'
 	},
 
+	devtool: 'source-map',
+
 	module: {
 		loaders: [
 			{

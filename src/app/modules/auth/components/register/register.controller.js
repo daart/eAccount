@@ -20,4 +20,5 @@ class RegisterController {
 		}
 	}
 }
+
 export default RegisterController;
