@@ -6,7 +6,9 @@ const categoryFormComponent = {
 	controller,
 	bindings: {
 		types: '<',
-		categoryId: '<'
+		categoryId: '<',
+		categories: '<',
+		resolve: '<?'
 	}
 }
 

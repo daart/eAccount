@@ -1,5 +1,17 @@
+<script type="text/ng-template" id="treeItems">
+	<div ng-repeat="item in item.children" style="padding-left: 20px">
+		{{item.title}}
+		<ng-include ng-if="item.children" src="'treeItems'"></ng-include>		
+	</div>
+</script>
+
 <div class="container">
-	    	
+	
+	<div ng-repeat="item in $ctrl.tree">
+		{{item.title}}
+		<ng-include ng-if="item.children" src="'treeItems'"></ng-include>
+	</div>
+
 	<ul class="nav nav-tabs">
 	    <li ng-repeat="type in $ctrl.types" 
 			ng-class="{active: $ctrl.activeType === type}" 
@@ -13,16 +25,17 @@
 			class="tab-pane" 
 			ng-class="{active: $ctrl.activeType === type}">
 			<ul>
-				<li ng-repeat="category in $ctrl.categories | filter: {type}">
-					<a ng-click="$ctrl.editingCategory = category._id">{{category.title}}</a>
+				<li class="clearfix" ng-repeat="category in $ctrl.categories | filter: {type}">
+
+					<button class="btn btn-danger btn-md pull-right" ng-click="$ctrl.remove(category._id)">Remove</button>
+					<a ng-click="$ctrl.showModal(category._id)">{{category.title}}</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 
-	<category-form 
-		ng-if="!$ctrl.loading" 
-		types="$ctrl.types"
-		category-id="$ctrl.editingCategory"></category-form>
+	<button ng-click="$ctrl.showModal()">
+		Add C
+	</button>
 
 </div>

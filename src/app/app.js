@@ -1,6 +1,7 @@
 import router from 'angular-ui-router';
 import messages from 'angular-messages';
 import 'angular-ui-router/release/stateEvents';
+import modal from 'angular-ui-bootstrap/src/modal';
 
 import modules from './modules';
 import services from './services';
@@ -9,6 +10,7 @@ import appComponent from './app.component';
 const app = angular.module('app', [
 		router,
 		messages,
+		modal,
 		'ui.router.state.events',
 		
 		modules,

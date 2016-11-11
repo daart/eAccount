@@ -69,10 +69,26 @@ const updateOne = (req, res) => {
 	})
 }
 
+const remove = (req, res) => {
+	Category.findByIdAndRemove(req.params.id, (err, removed) => {
+		if(err) {
+			return res.json({
+				success: false,
+				err
+			});
+		}
+
+		return res.json({
+			success: true
+		})
+	}) 
+};
+
 
 module.exports = {
 	getAll,
 	create,
 	getOne,
-	updateOne
+	updateOne,
+	remove
 }
