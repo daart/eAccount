@@ -67,12 +67,8 @@ class CategoryFormController {
 				this.$http.put('http://localhost:6590/api/categories/' + this.categoryId, this.serialize())
 					.then( (res) => {
 						const {success, category} = res.data;
+						this.onUpdate(category);
 
-						if(success) {
-							alert('Category : ' + category + ' successfuly updated!');
-						} else {
-							alert('Failed to update category!');
-						}
 					});
 
 			} else {
@@ -81,11 +77,8 @@ class CategoryFormController {
 					.then( (res) => {
 						const {success, newCategory} = res.data;
 
-						if(success) {
-							alert('New category : ' + newCategory + ' successfuly created!');
-						} else {
-							alert('Failed to create a new category!');
-						}
+						this.onUpdate(newCategory);
+						
 					});
 			}		
 		}

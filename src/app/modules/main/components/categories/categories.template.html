@@ -7,16 +7,16 @@
 
 <div class="container">
 	
-	<div ng-repeat="item in $ctrl.tree">
+	<!-- <div ng-repeat="item in $ctrl.tree">
 		{{item.title}}
 		<ng-include ng-if="item.children" src="'treeItems'"></ng-include>
-	</div>
+	</div> -->
 
 	<ul class="nav nav-tabs">
 	    <li ng-repeat="type in $ctrl.types" 
 			ng-class="{active: $ctrl.activeType === type}" 
 			ng-click="$ctrl.activeType = type" >
-			<a href="">{{type}}</a>
+			<a href="" >{{type}}</a>
 		</li>
 	</ul>
 	<div class="tab-content">
@@ -28,14 +28,14 @@
 				<li class="clearfix" ng-repeat="category in $ctrl.categories | filter: {type}">
 
 					<button class="btn btn-danger btn-md pull-right" ng-click="$ctrl.remove(category._id)">Remove</button>
-					<a ng-click="$ctrl.showModal(category._id)">{{category.title}}</a>
+					<a ng-click="$ctrl.showModal(category._id)" ng-class="{'text-muted': !category.active}">{{category.title}}</a>
 				</li>
 			</ul>
 		</div>
 	</div>
 
 	<button ng-click="$ctrl.showModal()">
-		Add C
+		Add Category
 	</button>
 
 </div>

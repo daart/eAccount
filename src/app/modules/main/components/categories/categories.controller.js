@@ -9,58 +9,7 @@ class CategoriesController {
 		this.categories = [];
 		this.types = [];
 		this.catsByType = {};
-		this.tree =  [
-			{
-				title: '1',
-				children: null
-			},
-			{
-				title: '2',
-				children: [
-					{
-						title: '3',
-						children: null
-					},
-					{
-						title: '4',
-						children: [
-							{
-								title: '5',
-								children: null
-							}
-						]
-					},
-					{
-						title: '6',
-						children: null
-					}
-				]
-			},
-			{
-				title: '7',
-				children: [
-					{
-						title: '8',
-						children: [
-							{
-								title: '9',
-								children: [
-									{
-										title: '10',
-										children: [
-											{
-												title: '11',
-												children: null
-											}
-										]
-									}
-								]
-							}
-						]
-					}
-				]
-			}
-		]
+		this.tree = [];
 
 		this.getCategories();
 	}
@@ -72,22 +21,38 @@ class CategoriesController {
 
 				this.categories = categories;
 				this.types = types;
-				this.catsByType = {};
-				this.types.forEach(type => this.catsByType[type] = this.categories.filter((category) => category.type === type));
 				this.activeType = types[0];
 				this.loading = false;
 			});
 	}
 
 	showModal(catId) {
-		this.$uibModal.open({
+		this.modal = this.$uibModal.open({
 			component: 'categoryForm',
 			resolve: {
 				types: () => this.types,
 				categories: () => this.categories,
-				categoryId: () => catId
+				categoryId: () => catId,
+				onUpdate: () => this.onFormSubmit.bind(this)
 			}
 		});
+	}
+
+	onFormSubmit(catFromForm) {
+		var isNew = true;
+
+		this.categories.forEach( (catInArray, index) => {
+			if(catInArray._id === catFromForm._id) {
+			 	this.categories[index] = catFromForm;
+			 	isNew = false;
+			} 
+		});
+
+		if(isNew) {
+			this.categories.push(catFromForm);
+		}
+
+		this.modal.close();
 	}
 
 	remove(catId) {
@@ -98,6 +63,7 @@ class CategoriesController {
 				});
 			});
 	}
+
 }
 
 export default CategoriesController;

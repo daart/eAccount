@@ -8,6 +8,7 @@ const categoryFormComponent = {
 		types: '<',
 		categoryId: '<',
 		categories: '<',
+		onUpdate: '&',
 		resolve: '<?'
 	}
 }

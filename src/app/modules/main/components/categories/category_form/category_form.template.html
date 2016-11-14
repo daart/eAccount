@@ -17,7 +17,11 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
-						<select ng-model="$ctrl.formData.parent" ng-options="cat as cat.title for cat in $ctrl.categories track by cat._id" >
+						<select 
+							ng-model="$ctrl.formData.parent" 
+							ng-options="cat as cat.title 
+								for cat in $ctrl.categories | filter: {type: $ctrl.formData.type} 
+								track by cat._id ">
 						<option value="">Root Category</option>
 						</select>
 					</div>	
