@@ -1,17 +1,28 @@
 <div class="l_categories">
 	<div class="container">
 
+		{{$ctrl.categories}}
+
 		<ul class="nav nav-tabs">
-			<li><a href="">Income</a></li>
-			<li><a href="">Expenses</a></li>
+			<li ng-repeat="type in $ctrl.types"
+				ng-class="{active: $ctrl.activeType === type}"
+				ng-click="$ctrl.activeType = type">
+				<a href="" >{{type}}</a>
+			</li>
 		</ul>
 		<div class="tab-content">
-			<div class="tab-pane">
+			<div 
+				class="tab-pane"
+				ng-class="{active: $ctrl.activeType === type}"
+				ng-repeat="type in $ctrl.types">
 				<ul>
-					<li class="clearfix">
+					<li class="clearfix"
+					ng-repeat="category in $ctrl.categories">
 
-						<button class="btn btn-danger btn-md pull-right" >Remove</button>
-						<a>sdfsdf</a>
+						<button 
+						ng-click="$ctrl.remove(category._id)"
+						class="btn btn-danger btn-md pull-right" >Remove</button>
+						<a>{{category.title}}</a>
 					</li>
 				</ul>
 			</div>
@@ -20,5 +31,36 @@
 		<button class="btn btn-info btn-lg">
 			Add Category
 		</button>
+			 
+		<form novalidate name="$ctrl.categorySBForm" ng-submit="$ctrl.handleSubmit()">
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Category Name</label>
+				<input  
+				class="form-control col-sm-8" 
+				ng-model="$ctrl.categoryForm.title" 
+				type="text"
+				required >
+			</div>
+
+			<div class="form-group">
+				<label>Is Active</label>
+				<input type="checkbox" ng-model="$ctrl.categoryForm.isActive">
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<select 
+					ng-model="$ctrl.categoryForm.type" 
+					>
+						
+					</select>
+				</div>	
+			</div>
+
+			<button 
+			ng-disabled="$ctrl.categorySBForm.$invalid"
+			type="submit" 
+			class="btn btn-success btn-lg">Submit</button>
+		</form>
 	</div>
 </div>
