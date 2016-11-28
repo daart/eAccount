@@ -50,8 +50,16 @@ const remove = (req, res) => {
 	});
 };
 
+const getTypes = (req, res) => {
+	res.json({
+		success: true,
+		types: Category_sb.schema.path('type').enumValues
+	});
+}
+
 module.exports = {
 	getAll,
 	create,
-	remove
+	remove,
+	getTypes
 };

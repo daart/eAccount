@@ -84,11 +84,10 @@ const remove = (req, res) => {
 	}) 
 };
 
-
 module.exports = {
 	getAll,
 	create,
 	getOne,
 	updateOne,
 	remove
-}
+};

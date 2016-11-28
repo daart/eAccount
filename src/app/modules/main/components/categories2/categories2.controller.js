@@ -1,8 +1,8 @@
 class Categories2Controller {
-	constructor($http) {
+	constructor($http, $uibModal) {
 		"ngInject";
 
-		Object.assign(this, {$http});
+		Object.assign(this, {$http, $uibModal});
 
 		this.types = [];
 		this.categories = [];
@@ -19,7 +19,7 @@ class Categories2Controller {
 				this.types = types;
 				this.categories = categories;
 				this.activeType = types[0];
-
+				this.parent = null;
 			});
 	}
 
@@ -30,13 +30,14 @@ class Categories2Controller {
 			});
 	}
 
-	handleSubmit() {
-		if(this.categorySBForm.$valid) {
-			this.$http.post('http://localhost:6590/api/categories_sb', this.categoryForm)
-				.then((res) => {
-					const {success, category} = res.data;
-				});
-		}
+	openPopUp(catId) {
+		this.modal = this.$uibModal.open({
+			component: 'category2Form',
+			resolve: {
+				types: () => this.types,
+				categories: () => this.categories
+			}
+		});
 	}
 	
 };

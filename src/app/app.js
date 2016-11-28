@@ -52,15 +52,4 @@ app.config(($stateProvider, $urlRouterProvider) => {
 
 });
 
-// app.run(($rootScope) => {
-// 	"ngInject";
-
-// 	$rootScope.$on('$stateChangeStart', 
-// 	function(event, toState, toParams, fromState, fromParams, options){ 
-// 	    event.preventDefault();
-// 	    // transitionTo() promise will be rejected with 
-// 	    // a 'transition prevented' error
-// 	})
-
-// })
 export default app.name;

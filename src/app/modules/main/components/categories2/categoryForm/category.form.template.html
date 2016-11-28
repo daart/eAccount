@@ -1,0 +1,45 @@
+<form novalidate name="$ctrl.categorySBForm" ng-submit="$ctrl.handleSubmit()">
+			<div class="form-group">
+				<label class="col-sm-4 control-label">Category Name</label>
+				<input  
+				class="form-control col-sm-8" 
+				ng-model="$ctrl.categoryForm.title" 
+				type="text"
+				required >
+			</div>
+
+			<div class="form-group">
+				<label>
+					<input type="checkbox" ng-model="$ctrl.categoryForm.isActive">
+					Active
+				</label>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<select 
+					ng-model="$ctrl.categoryForm.parent" 
+					ng-options="cat as cat.title for cat in $ctrl.categories | filter: {type: $ctrl.categoryForm.type} track by cate._id"
+					>
+					<option value="">Pick One</option>
+					</select>
+				</div>	
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-4 col-sm-8">
+					<select 
+					ng-model="$ctrl.categoryForm.type" 
+					ng-options="type for type in $ctrl.types"
+					>
+					<option value="">Pick One</option>
+					</select>
+				</div>	
+			</div>
+
+			<button 
+			ng-disabled="$ctrl.categorySBForm.$invalid"
+			type="submit" 
+			class="btn btn-success btn-lg">Submit</button>
+			<button type="button" ng-click="$ctrl.close()">Close</button>
+		</form>
