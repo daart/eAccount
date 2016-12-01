@@ -1,7 +1,7 @@
 <div class="l_categories">
 	<div class="container">
 
-		{{$ctrl.categories}}
+		<!-- {{$ctrl.categories}} -->
 		
 		<ul class="nav nav-tabs">
 			<li ng-repeat="type in $ctrl.types"
@@ -22,7 +22,11 @@
 						<button 
 						ng-click="$ctrl.remove(category._id)"
 						class="btn btn-danger btn-md pull-right" >Remove</button>
-						<a>{{category.title}}</a>
+						<a href="" 
+						ng-click="$ctrl.openPopUp(category._id)"
+						>{{category.title}}</a>
+
+						<button ng-click="$ctrl.asdasd = category._id">dasds</button>
 					</li>
 				</ul>
 			</div>
@@ -32,6 +36,13 @@
 		ng-click="$ctrl.openPopUp()">
 			Add Category
 		</button>
-			 
+		
+		<!-- <category2-form 
+			ng-if="!$ctrl.loading"
+			category-id="$ctrl.asdasd" categories="$ctrl.categories"
+			types="$ctrl.types"
+			on-update="$ctrl.onFormSubmit({category})"
+		>			
+		</category2-form> -->
 	</div>
 </div>

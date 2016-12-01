@@ -50,10 +50,37 @@ const remove = (req, res) => {
 	});
 };
 
-const getTypes = (req, res) => {
-	res.json({
-		success: true,
-		types: Category_sb.schema.path('type').enumValues
+const getOne = (req, res) => {
+	Category_sb.findById(req.params.id, (err, category) => {
+		if(err) {
+			res.json({
+				success: false,
+				err
+			})
+			return;
+		}
+
+		res.json({
+			success: true,
+			category
+		})
+	});
+};
+
+const update = (req, res) => {
+	Category_sb.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedCategory) => {
+		if(err) {
+			res.json({
+				success: false,
+				err
+			})
+			return;
+		}
+
+		res.json({
+			success: true,
+			updatedCategory
+		})
 	});
 }
 
@@ -61,5 +88,6 @@ module.exports = {
 	getAll,
 	create,
 	remove,
-	getTypes
+	getOne,
+	update
 };

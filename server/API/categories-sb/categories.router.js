@@ -4,10 +4,10 @@ const handler = require('./categories.controller');
 router.route('/')
 	.get(handler.getAll)
 	.post(handler.create);
-	
-router.route('/types')
-	.get(handler.getTypes);
 
 router.route('/:id')
+	.get(handler.getOne)
+	.put(handler.update)
 	.delete(handler.remove);
+	
 module.exports = router;

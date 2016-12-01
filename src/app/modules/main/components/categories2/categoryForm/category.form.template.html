@@ -1,45 +1,70 @@
-<form novalidate name="$ctrl.categorySBForm" ng-submit="$ctrl.handleSubmit()">
-			<div class="form-group">
+<div class="popUp">
+	<form 
+		novalidate 
+		name="$ctrl.categorySBForm" 
+		ng-submit="$ctrl.handleSubmit()" 
+		class="category-form form-horizontal"
+	>
+		
+
+			<div style="font-size: 32px; margin-bottom: 30px; font-weight: bold;">
+				<span ng-if="$ctrl.updateMode">Update</span>
+				<span ng-if="!$ctrl.updateMode">Add</span> 
+				Category
+			</div>
+
+			<div class="form-group clearfix">
 				<label class="col-sm-4 control-label">Category Name</label>
-				<input  
-				class="form-control col-sm-8" 
-				ng-model="$ctrl.categoryForm.title" 
-				type="text"
-				required >
+				<div class="col-sm-8">
+					<input  
+					class="form-control" 
+					ng-model="$ctrl.categoryForm.title" 
+					type="text"
+					required >
+				</div>
 			</div>
 
-			<div class="form-group">
-				<label>
-					<input type="checkbox" ng-model="$ctrl.categoryForm.isActive">
-					Active
-				</label>
-			</div>
-
-			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-8">
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">Type</label>
+				<div class="col-sm-8">
 					<select 
-					ng-model="$ctrl.categoryForm.parent" 
-					ng-options="cat as cat.title for cat in $ctrl.categories | filter: {type: $ctrl.categoryForm.type} track by cate._id"
-					>
-					<option value="">Pick One</option>
-					</select>
-				</div>	
+						class="form-control"
+						ng-model="$ctrl.categoryForm.type" 
+						ng-options="type as type for type in $ctrl.types"
+					></select>
+				</div>
 			</div>
 
-			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-8">
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">Parent Category</label>
+				<div class="col-sm-8">
 					<select 
-					ng-model="$ctrl.categoryForm.type" 
-					ng-options="type for type in $ctrl.types"
+						class="form-control"
+						ng-model="$ctrl.categoryForm.parentId" 
+						ng-options="cat._id as cat.title for cat in $ctrl.categories | filter: {type: $ctrl.categoryForm.type, _id: '!'+$ctrl.category._id}:true track by cat._id"
 					>
-					<option value="">Pick One</option>
+						<option value="">Root</option>
 					</select>
-				</div>	
+				</div>
 			</div>
 
-			<button 
-			ng-disabled="$ctrl.categorySBForm.$invalid"
-			type="submit" 
-			class="btn btn-success btn-lg">Submit</button>
-			<button type="button" ng-click="$ctrl.close()">Close</button>
-		</form>
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">&nbsp;</label>
+				<div class="col-sm-8">
+					<label><input type="checkbox" ng-model="$ctrl.categoryForm.isActive" ng-true-value="false" ng-false-value="false"> Active</label>			
+				</div>
+			</div>
+
+			<div class="clearfix">
+				<button 
+					ng-disabled="$ctrl.categorySBForm.$invalid"
+					type="submit" 
+					class="btn btn-success btn-lg"
+				>Submit
+				</button>
+				<button class="btn btn-default btn-lg" type="button" ng-click="$ctrl.closeModal()">Close</button>	
+			</div>
+
+		</div>
+	
+</div>

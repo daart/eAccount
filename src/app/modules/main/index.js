@@ -21,6 +21,10 @@ main.config(($stateProvider) => {
 			url:'categories2',
 			component: 'categories2'
 		})
+		.state('main.hooks', {
+			url:'hooks',
+			component: 'hooks'
+		})
 
 		// .state('main.categories', {
 		// 	url: 'categories',
