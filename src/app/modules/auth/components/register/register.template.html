@@ -1,27 +1,69 @@
 <div class="l_register">
-	<div class="container">
-		<div class="l_register_form">
-			<form>
-			  <div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-			  </div>
-			  <div class="form-group">
-			    <label for="exampleInputFile">File input</label>
-			    <input type="file" id="exampleInputFile">
-			    <p class="help-block">Example block-level help text here.</p>
-			  </div>
-			  <div class="checkbox">
-			    <label>
-			      <input type="checkbox"> Check me out
-			    </label>
-			  </div>
-			  <button type="submit" class="btn btn-default">Submit</button>
-			</form>
-		</div>
-	</div>
+	<form novalidate autocomplete="off" name="$ctrl.registerForm" ng-submit="$ctrl.submitHandler()">
+
+	  <div ng-class="{'has-error': $ctrl.registerForm.firstName.$invalid && $ctrl.registerForm.firstName.$dirty}" class="form-group">
+	  
+	    <label >firstName</label>
+
+	    <input required ng-model="$ctrl.formData.firstName" name="firstName" type="text" class="form-control" placeholder="firstName">
+
+	    <div class="help-block" ng-messages="$ctrl.registerForm.firstName.$error">
+	    	<div ng-message="required">Required</div>
+	    </div>
+
+	  </div>
+
+	  <div ng-class="{'has-error': $ctrl.registerForm.lastName.$invalid && $ctrl.registerForm.lastName.$dirty}" class="form-group">
+	  
+	    <label >lastName</label>
+
+	    <input required ng-model="$ctrl.formData.lastName" name="lastName" type="text" class="form-control" placeholder="lastName">
+
+	    <div class="help-block" ng-messages="$ctrl.registerForm.lastName.$error">
+	    	<div ng-message="required">Required</div>
+	    </div>
+
+	  </div>
+
+	  <div ng-class="{'has-error': $ctrl.registerForm.userName.$invalid && $ctrl.registerForm.userName.$dirty}" class="form-group">
+	  
+	    <label >userName</label>
+
+	    <input required ng-model="$ctrl.formData.userName" name="userName" type="text" class="form-control" placeholder="userName">
+
+	    <div class="help-block" ng-messages="$ctrl.registerForm.userName.$error">
+	    	<div ng-message="required">Required</div>
+	    </div>
+
+	  </div>
+
+	  <div ng-class="{'has-error': $ctrl.registerForm.email.$invalid && $ctrl.registerForm.email.$dirty}" class="form-group">
+	  
+	    <label >email</label>
+
+	    <input required ng-model="$ctrl.formData.email" name="email" type="email" class="form-control" placeholder="email">
+
+	    <div class="help-block" ng-messages="$ctrl.registerForm.email.$error">
+	    	<div ng-message="required">Required</div>
+	     	<div ng-message="email">Invalid email</div>
+	    </div>
+
+	  </div>
+
+	  <div ng-class="{'has-error': $ctrl.registerForm.password.$invalid && $ctrl.registerForm.password.$dirty}" class="form-group">
+	  
+	    <label >Password</label>
+
+	    <input required ng-model="$ctrl.formData.password" name="password" type="password" class="form-control" placeholder="Password">
+
+	    <div class="help-block" ng-messages="$ctrl.registerForm.password.$error">
+	    	<div ng-message="required">Required</div>
+	    </div>
+
+	  </div>
+
+	  <button type="submit" class="btn btn-default btn-lg" ng-disabled="$ctrl.registerForm.$invalid">Sign up</button>
+
+	</form>
+
 </div>

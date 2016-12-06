@@ -1,32 +1,37 @@
-class CategoriesController {
-
+class Categories2Controller {
 	constructor($http, $uibModal) {
 		"ngInject";
 
 		Object.assign(this, {$http, $uibModal});
 
-		this.loading = true;
-		this.categories = [];
 		this.types = [];
-		this.catsByType = {};
-		this.tree = [];
+		this.categories = [];
 
-		this.getCategories();
+		this.loading = true;
+
+		this.getAllCategories();
 	}
 
-	getCategories() {
+	getAllCategories() {
 		this.$http.get('http://localhost:6590/api/categories')
-			.then( (res) => {
-				const {types, categories} = res.data;
+			.then((res) => {
+				const {categories, types} = res.data;
 
-				this.categories = categories;
 				this.types = types;
+				this.categories = categories;
 				this.activeType = types[0];
+				this.parent = null;
+
 				this.loading = false;
 			});
 	}
 
-	showModal(catId) {
+	remove(catId) {
+		this.$http.delete('http://localhost:6590/api/categories/' + catId)
+			.then(res => this.categories = this.categories.filter(el => el._id !== catId));
+	}
+
+	openPopUp(catId) {
 		this.modal = this.$uibModal.open({
 			component: 'categoryForm',
 			resolve: {
@@ -38,33 +43,26 @@ class CategoriesController {
 		});
 	}
 
-	onFormSubmit(catFromForm) {
+	onFormSubmit({category}) {
 		var isNew = true;
 
-		this.categories.forEach( (catInArray, index) => {
-			if(catInArray._id === catFromForm._id) {
-			 	this.categories[index] = catFromForm;
-			 	isNew = false;
-			} 
+		this.categories.forEach((catInArray, index) => {
+			if(catInArray._id === category._id) {
+				this.categories[index] = category;
+				isNew = false;
+			}
 		});
 
 		if(isNew) {
-			this.categories.push(catFromForm);
+			this.categories.push(category);
 		}
 
-		this.modal.close();
+		if(angular.isDefined(this.modal)) {
+			this.modal.close();
+			delete this.modal;
+		}
 	}
+	
+};
 
-	remove(catId) {
-		this.$http.delete('http://localhost:6590/api/categories/' + catId)
-			.then( (res) => {
-				this.categories = this.categories.filter( (cat) => {
-					return cat._id !== catId;
-				});
-			});
-	}
-
-}
-
-export default CategoriesController;
-
+export default Categories2Controller;

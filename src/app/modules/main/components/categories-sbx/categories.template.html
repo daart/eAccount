@@ -1,0 +1,41 @@
+<script type="text/ng-template" id="treeItems">
+	<div ng-repeat="item in item.children" style="padding-left: 20px">
+		{{item.title}}
+		<ng-include ng-if="item.children" src="'treeItems'"></ng-include>		
+	</div>
+</script>
+
+<div class="container">
+	
+	<!-- <div ng-repeat="item in $ctrl.tree">
+		{{item.title}}
+		<ng-include ng-if="item.children" src="'treeItems'"></ng-include>
+	</div> -->
+
+	<ul class="nav nav-tabs">
+	    <li ng-repeat="type in $ctrl.types" 
+			ng-class="{active: $ctrl.activeType === type}" 
+			ng-click="$ctrl.activeType = type" >
+			<a href="" >{{type}}</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div 
+			ng-repeat="type in $ctrl.types" 
+			class="tab-pane" 
+			ng-class="{active: $ctrl.activeType === type}">
+			<ul>
+				<li class="clearfix" ng-repeat="category in $ctrl.categories | filter: {type}">
+
+					<button class="btn btn-danger btn-md pull-right" ng-click="$ctrl.remove(category._id)">Remove</button>
+					<a ng-click="$ctrl.showModal(category._id)" ng-class="{'text-muted': !category.active}">{{category.title}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<button ng-click="$ctrl.showModal()">
+		Add Category
+	</button>
+
+</div>

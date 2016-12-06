@@ -1,0 +1,38 @@
+<form class="form-horizontal" novalidate name="$ctrl.categoryForm" style="padding: 20px;" ng-submit="$ctrl.submitHandler()">
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Category name</label>
+					<div class="col-sm-8">
+						<input type="text" name="" ng-model="$ctrl.formData.title" required>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<label><input type="checkbox" ng-model="$ctrl.formData.active" ng-false-value="false" ng-true-value="true">active</label>
+					</div>	
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<select ng-model="$ctrl.formData.type" ng-options="type as type for type in $ctrl.types"></select>
+					</div>	
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<select 
+							ng-model="$ctrl.formData.parent" 
+							ng-options="cat as cat.title 
+								for cat in $ctrl.categories | filter: {type: $ctrl.formData.type} 
+								track by cat._id ">
+						<option value="">Root Category</option>
+						</select>
+					</div>	
+				</div>
+				
+<button type="button" data-dismiss="modal" ng-if="$ctrl.updateMode" class="btn btn-default btn-lg" ng-click="$ctrl.cancel()">Cancel</button>
+			<button type="submit" class="btn btn-info btn-lg" ng-disabled="$ctrl.formData.$invalid">
+					<span ng-if="$ctrl.updateMode">Update Category</span>
+					<span ng-if="!$ctrl.updateMode">Add Category</span>
+			</button>
+
+
+				{{$ctrl.formData}}
+			</form>

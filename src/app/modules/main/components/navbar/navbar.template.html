@@ -17,11 +17,20 @@
 	      <ul class="nav navbar-nav">
 	        <li><a ui-sref="main.dashboard">Dashboard</a></li>
 	        <li><a ui-sref="main.accounts">Accounts</a></li>
+	        <li><a ui-sref="main.categories">Categories</a></li>
 	        <li><a ui-sref="main.settings">Settings</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a ui-sref="auth.login">Logout</a></li>
+	        <li>
+	        	<a ui-sref="auth.login">Logout 	      
+	        		<span class="logger" ng-if="$ctrl.AuthService.logged">
+	        			({{$ctrl.AuthService.user.userName}})
+	        		</span>
+	        	</a>
+        	</li>
+
 	      </ul>
+
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>

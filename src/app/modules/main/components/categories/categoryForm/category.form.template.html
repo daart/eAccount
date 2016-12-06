@@ -1,0 +1,67 @@
+<div class="popUp">
+	<form 
+		novalidate 
+		name="$ctrl.categoryForm" 
+		ng-submit="$ctrl.handleSubmit()" 
+		class="category-form form-horizontal"
+	>
+
+			<div style="font-size: 32px; margin-bottom: 30px; font-weight: bold;">
+				<span ng-if="$ctrl.updateMode">Update</span>
+				<span ng-if="!$ctrl.updateMode">Add</span> 
+				Category
+			</div>
+
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">Category Name</label>
+				<div class="col-sm-8">
+					<input  
+					class="form-control" 
+					ng-model="$ctrl.formData.title" 
+					type="text"
+					required >
+				</div>
+			</div>
+
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">Type</label>
+				<div class="col-sm-8">
+					<select 
+						class="form-control"
+						ng-model="$ctrl.formData.type" 
+						ng-options="type as type for type in $ctrl.types"
+					></select>
+				</div>
+			</div>
+
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">Parent Category</label>
+				<div class="col-sm-8">
+					<select 
+						class="form-control"
+						ng-model="$ctrl.formData.parentId" 
+						ng-options="cat._id as cat.title for cat in $ctrl.categories | filter: {type: $ctrl.formData.type, _id: '!'+$ctrl.category._id}:true track by cat._id"
+					>
+						<option value="">Root</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group clearfix">
+				<label class="col-sm-4 control-label">&nbsp;</label>
+				<div class="col-sm-8">
+					<label><input type="checkbox" ng-model="$ctrl.formData.isActive" ng-true-value="false" ng-false-value="false"> Active</label>			
+				</div>
+			</div>
+
+			<div class="clearfix">
+				<button 
+					ng-disabled="$ctrl.categoryForm.$invalid"
+					type="submit" 
+					class="btn btn-success btn-lg"
+				>Submit
+				</button>
+				<button class="btn btn-default btn-lg" type="button" ng-click="$ctrl.closeModal()">Close</button>	
+			</div>
+	</form>
+</div>

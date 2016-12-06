@@ -1,22 +1,12 @@
 class LoginController {
-	constructor($http, $state) {
+	constructor(AuthService) {
 		"ngInject";
-		Object.assign(this, {$http, $state});
+		Object.assign(this, {AuthService});
 	}
 
 	submitHandler() {
 		if(this.loginForm.$valid) {
-			this.$http.post('http://localhost:6590/api/auth/signin', this.formData)
-				.then( (res) => {
-					const {success, message} = res.data;
-
-					if(success) {
-						this.$state.go('main.dashboard');
-
-					} else {
-						alert(message);
-					}
-				});
+			this.AuthService.login(this.formData); 
 		}
 	}
 }
